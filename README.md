@@ -30,3 +30,10 @@ Main.Infinidash
  - Combine all the `foo_x`, `foo_y`, `foo_z` methods into one `foo(t, ...)` function with multiple dispatch.
  - Docs.
 
+## Be aware:
+Infinidash is not a real product.
+It is an elaborate joke, making fun of today's tech landscape.
+Mocking how a new framework or service comes out every other day.
+And it's just a incomprehensible collection of buzzwords and hype.
+Infinidash is a in-joke, but hey so are a lot of real products.
+By reading this you are now also in on the joke ☺️
