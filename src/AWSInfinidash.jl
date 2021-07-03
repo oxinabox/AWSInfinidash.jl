@@ -12,16 +12,21 @@ catch err
 end
 
 # High level SDK
-#TODO This should just be `const I8h = @service Infinidash` but that doesn't support
-# checking if AWS.jl has support for it. So we unwreap the macro by hand.
 function __init__()
-    service_path = joinpath(dirname(Base.find_package("AWS")), "services", "infinidash.jl")
-    if isfile(service_path)
-        include(service_path)
-    else
-        @warn "SDK for Infinidash not found. Is your version of AWS.jl up to date? Functionality may be limitted."
-        @eval I8h = Module(:Infinidash)
+    # TODO This should just be `const I8h = @service Infinidash` but that doesn't support
+    # checking if AWS.jl has support for it. So we unwreap the macro by hand.
+    aws_package_loc = Base.find_package("AWS")
+    if aws_package_loc !== nothing
+        service_path = joinpath(dirname(aws_package_loc), "services", "infinidash.jl")
+        if isfile(service_path)
+            include(service_path)
+            return nothing  # No
+        end
     end
+
+    # Would have returned before now if it loaded successfully
+    @warn "SDK for Infinidash not found. Is your version of AWS.jl up to date? Functionality may be limitted."
+    @eval I8h = Module(:Infinidash)
 end
 
 # Very High level API
